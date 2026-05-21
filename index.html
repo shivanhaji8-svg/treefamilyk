@@ -1835,103 +1835,43 @@ color:#2f6b4f;
 
 <!-- ================= GALLERY ================= -->
 <section class="gallery" id="gallery">
-
-  <h2 class="section-title animate-on-scroll">
-    گەلەری یامە کاریـێ مە
-  </h2>
-
+  <h2 class="section-title animate-on-scroll">گەلەری یامە کاریـێ مە&nbsp;</h2>
   <p class="section-desc animate-on-scroll">
     هندەک ژ دیزاینێن مە یێن جوان بۆ دارا بنەمالا خێزانا کوردی
   </p>
 
   <div class="posts">
-
-    <!-- CARD 1 -->
-    <div class="card animate-on-scroll">
-
-      <div onclick="openModal(this.parentElement)">
-        <img src="../images/img1.jpg" alt="نموونەی ١">
-        <p>🎨 نموونا ١</p>
-      </div>
-
-      <button class="like-btn" data-post="post1">
-        ❤️ <span id="likes-post1">0</span>
-      </button>
+    <div class="card animate-on-scroll" onclick="openModal(this)">
+      <img src="../images/img1.jpg" alt="نموونەی ١">
+         <p>🎨 نموونا&nbsp; ١</p>
 
     </div>
-
-    <!-- CARD 2 -->
-    <div class="card animate-on-scroll">
-
-      <div onclick="openModal(this.parentElement)">
-        <img src="../images/img2.jpg" alt="نموونەی ٢">
-        <p>🎨 نموونا ٢</p>
-      </div>
-
-      <button class="like-btn" data-post="post2">
-        ❤️ <span id="likes-post2">0</span>
-      </button>
+    <div class="card animate-on-scroll" onclick="openModal(this)">
+      <img src="../images/img2.jpg" alt="نموونەی ٢">
+      <p>🎨 نموونا ٢</p>
 
     </div>
-
-    <!-- CARD 3 -->
-    <div class="card animate-on-scroll">
-
-      <div onclick="openModal(this.parentElement)">
-        <img src="../images/img3.jpg" alt="نموونەی ٣">
-        <p>🎨 نموونا ٣</p>
-      </div>
-
-      <button class="like-btn" data-post="post3">
-        ❤️ <span id="likes-post3">0</span>
-      </button>
+    <div class="card animate-on-scroll" onclick="openModal(this)">
+      <img src="../images/img3.jpg" alt="نموونەی ٣">
+         <p>🎨 نموونا ٣</p>
 
     </div>
-
-    <!-- CARD 4 -->
-    <div class="card animate-on-scroll">
-
-      <div onclick="openModal(this.parentElement)">
-        <img src="../images/img4.jpg" alt="نموونەی ٤">
-        <p>🎨 نموونا ٤</p>
-      </div>
-
-      <button class="like-btn" data-post="post4">
-        ❤️ <span id="likes-post4">0</span>
-      </button>
+    <div class="card animate-on-scroll" onclick="openModal(this)">
+      <img src="../images/img4.jpg" alt="نموونەی ٤">
+         <p>🎨 نموونا ٤</p>
 
     </div>
-
-    <!-- CARD 5 -->
-    <div class="card animate-on-scroll">
-
-      <div onclick="openModal(this.parentElement)">
-        <img src="../images/img5.jpg" alt="نموونەی ٥">
-        <p>🎨 نموونا ٥</p>
-      </div>
-
-      <button class="like-btn" data-post="post5">
-        ❤️ <span id="likes-post5">0</span>
-      </button>
+    <div class="card animate-on-scroll" onclick="openModal(this)">
+      <img src="../images/img5.jpg" alt="نموونەی ٥">
+          <p>🎨 نموونا ٥</p>
 
     </div>
-
-    <!-- CARD 6 -->
-    <div class="card animate-on-scroll">
-
-      <div onclick="openModal(this.parentElement)">
-        <img src="../images/img6.jpg" alt="نموونەی ٦">
-        <p>🎨 نموونا ٦</p>
-      </div>
-
-      <button class="like-btn" data-post="post6">
-        ❤️ <span id="likes-post6">0</span>
-      </button>
-
+    <div class="card animate-on-scroll" onclick="openModal(this)">
+      <img src="../images/img6.jpg" alt="نموونەی ٦">
+         <p>🎨 نموونا ٦</p>
     </div>
-
+   
   </div>
-
 </section>
 
 <!-- ================= PRICE ================= -->
@@ -2832,74 +2772,6 @@ async function addVisitor() {
 }
 
 addVisitor();
-
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL =
-"https://oyqydlytuadqflusaqfi.supabase.co";
-
-const SUPABASE_ANON_KEY =
-"sb_publishable_ht0Bbg0dPpqy_X7k9bkxVQ_EKbBoSW1";
-
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-async function loadLikes(postId){
-
-  const { count } = await supabaseClient
-    .from('likes')
-    .select('*', { count: 'exact', head: true })
-    .eq('post_id', postId);
-
-  document.getElementById(
-    `likes-${postId}`
-  ).innerText = count || 0;
-}
-
-async function likePost(postId){
-
-  const visitorId =
-    localStorage.getItem('visitor_id') ||
-    crypto.randomUUID();
-
-  localStorage.setItem(
-    'visitor_id',
-    visitorId
-  );
-
-  const { error } = await supabaseClient
-    .from('likes')
-    .insert([
-      {
-        post_id: postId,
-        visitor_id: visitorId
-      }
-    ]);
-
-  if(error){
-    alert("تۆ پێشتر لایکەت کردووە ❤️");
-    return;
-  }
-
-  loadLikes(postId);
-}
-
-document.querySelectorAll('.like-btn')
-.forEach(btn => {
-
-  const postId = btn.dataset.post;
-
-  loadLikes(postId);
-
-  btn.addEventListener('click', () => {
-    likePost(postId);
-  });
-
-});
-</script>
 
 </script>
 
