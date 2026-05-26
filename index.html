@@ -2754,20 +2754,24 @@ function setupMarquee() {
 setupMarquee();
   
 // ================= visitor =================
-// ================= visitor =================
-// ================= visitor =================
-const client = window.supabase.createClient(
-  "https://xvsyluxbluetekoqwanj.supabase.co", // بەستەری ڕاستەقینەی پڕۆژەکەت
-  "sb_publishable_ZTQ7Cu2f5xwa0VjErT3wHQ_FS8F6c4O" // کلیلی ڕاستەقینەی خۆت
+// لێرە وشەی window لادراوە بۆ ئەوەی ڕاستەوخۆ لایبرەرییەکە بناسێتەوە
+const client = supabase.createClient(
+  "https://xvsyluxbluetekoqwanj.supabase.co", 
+  "sb_publishable_ZTQ7Cu2f5xwa0VjErT3wHQ_FS8F6c4O" 
 );
 
 async function addVisitor() {
   // ١. خوێندنەوەی ژمارەی ئێستای ناو داتابەیس
-  let { data } = await client
+  let { data, error } = await client
     .from("visitors")
     .select("count")
     .eq("id", 1)
     .single();
+
+  if (error) {
+    console.error("Error fetching rows:", error);
+    return;
+  }
 
   let newCount = (data?.count || 0) + 1;
 
@@ -2778,7 +2782,10 @@ async function addVisitor() {
     .eq("id", 1);
 
   // ٣. پیشاندانی ژمارە نوێیەکە لەسەر سایتەکە
-  document.getElementById("visitorCount").innerText = newCount;
+  const element = document.getElementById("visitorCount");
+  if (element) {
+    element.innerText = newCount;
+  }
 }
 
 // کارپێکردنی فەنکشنەکە لەگەڵ هەر لۆدبوون و ڕیفریشێکی لاپەڕەکە
