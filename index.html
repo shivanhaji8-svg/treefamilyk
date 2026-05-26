@@ -2752,13 +2752,16 @@ function setupMarquee() {
 // بانگکردنی فەنکشنەکە لەکاتی باربوونی پەڕەکە
 setupMarquee();
   
-  // ================= visitor =================
+// ================= visitor =================
+// ================= visitor =================
+// ================= visitor =================
 const client = window.supabase.createClient(
-  "https://YOUR_PROJECT.supabase.co",
-  "YOUR_ANON_KEY"
+  "https://xvsyluxbluetekoqwanj.supabase.co", // بەستەری ڕاستەقینەی پڕۆژەکەت
+  "sb_publishable_ZTQ7Cu2f5xwa0VjErT3wHQ_FS8F6c4O" // کلیلی ڕاستەقینەی خۆت
 );
 
 async function addVisitor() {
+  // ١. خوێندنەوەی ژمارەی ئێستای ناو داتابەیس
   let { data } = await client
     .from("visitors")
     .select("count")
@@ -2767,16 +2770,18 @@ async function addVisitor() {
 
   let newCount = (data?.count || 0) + 1;
 
+  // ٢. ئەپدیتکردنەوەی ژمارەکە بە زیادکردنی ١ دانە
   await client
     .from("visitors")
     .update({ count: newCount })
     .eq("id", 1);
 
+  // ٣. پیشاندانی ژمارە نوێیەکە لەسەر سایتەکە
   document.getElementById("visitorCount").innerText = newCount;
 }
 
+// کارپێکردنی فەنکشنەکە لەگەڵ هەر لۆدبوون و ڕیفریشێکی لاپەڕەکە
 addVisitor();
-
 </script>
 
 
