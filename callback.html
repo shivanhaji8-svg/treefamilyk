@@ -1,0 +1,9 @@
+meta name="viewport" content="width=device-width, initial-scale=1">
+<body style="font-family:sans-serif;padding:20px">
+<h3>Code:</h3>
+<textarea id="c" rows="6" style="width:100%;font-size:16px"></textarea>
+<button onclick="navigator.clipboard.writeText(c.value)" style="font-size:20px;padding:10px">Copy</button>
+<script>
+c.value = new URLSearchParams(location.search).get("code") || "code نییە";
+</script>
+</body>
